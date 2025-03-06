@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiPlus, FiEye, FiX } from 'react-icons/fi';
 
 export default function BannerList() {
     const [banners, setBanners] = useState([]);
@@ -9,6 +9,7 @@ export default function BannerList() {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [setting, setSetting] = useState(null);
     const [showSettingModal, setShowSettingModal] = useState(false);
+    const [viewImage, setViewImage] = useState(null);
 
     // Fetch setting data
     const fetchSetting = async () => {
@@ -186,29 +187,39 @@ export default function BannerList() {
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {banners.map((banner, index) => (
-                            <div key={banner._id} className="group relative bg-white/5 rounded-xl overflow-hidden border border-white/10 transition-all duration-300 hover:transform hover:scale-105">
-                                <img 
-                                    src={banner.image} 
-                                    alt={banner.name} 
-                                    className="w-full h-48 object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                                        <h3 className="text-white font-semibold mb-2">{banner.name}</h3>
-                                        <div className="flex space-x-2">
-                                            <button 
-                                                onClick={() => setEditBanner(banner)}
-                                                className="flex items-center px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-white text-sm transition-colors duration-200"
-                                            >
-                                                <FiEdit2 className="mr-1" /> Edit
-                                            </button>
-                                            <button 
-                                                onClick={() => setShowDeleteConfirm(banner)}
-                                                className="flex items-center px-3 py-1 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-white text-sm transition-colors duration-200"
-                                            >
-                                                <FiTrash2 className="mr-1" /> Delete
-                                            </button>
-                                        </div>
+                            <div key={banner._id} className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 transition-all duration-300 hover:scale-105">
+                                <div className="aspect-[3/1] relative">
+                                    <img 
+                                        src={banner.image} 
+                                        alt={banner.name} 
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                </div>
+                                <div className="p-4">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <h3 className="text-white text-lg font-semibold">{banner.name}</h3>
+                                        <span className="text-gray-400 text-sm">#{index + 1}</span>
+                                    </div>
+                                    <div className="flex flex-col space-y-2">
+                                        <button 
+                                            onClick={() => setViewImage(banner)}
+                                            className="flex items-center justify-center px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 rounded-xl text-blue-300 text-sm transition-all duration-200 hover:scale-105 w-full"
+                                        >
+                                            <FiEye className="mr-2" /> View
+                                        </button>
+                                        <button 
+                                            onClick={() => setEditBanner(banner)}
+                                            className="flex items-center justify-center px-4 py-2 bg-indigo-500/20 hover:bg-indigo-500/30 rounded-xl text-indigo-300 text-sm transition-all duration-200 hover:scale-105 w-full"
+                                        >
+                                            <FiEdit2 className="mr-2" /> Edit
+                                        </button>
+                                        <button 
+                                            onClick={() => setShowDeleteConfirm(banner)}
+                                            className="flex items-center justify-center px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-xl text-red-300 text-sm transition-all duration-200 hover:scale-105 w-full"
+                                        >
+                                            <FiTrash2 className="mr-2" /> Delete
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -389,6 +400,31 @@ export default function BannerList() {
                                 </div>
                             </div>
                         )}
+                    </div>
+                </div>
+            )}
+
+            {/* Full Screen Image Modal */}
+            {viewImage && (
+                <div 
+                    className="fixed inset-0 bg-black/90 backdrop-blur-lg z-50 flex flex-col items-center justify-center"
+                    onClick={() => setViewImage(null)}
+                >
+                    <div className="absolute top-4 right-4">
+                        <button 
+                            onClick={() => setViewImage(null)}
+                            className="text-white/70 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                        >
+                            <FiX size={24} />
+                        </button>
+                    </div>
+                    <div className="w-full h-full p-4 flex flex-col items-center justify-center">
+                        <img 
+                            src={viewImage.image} 
+                            alt={viewImage.name}
+                            className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg"
+                        />
+                        <h3 className="text-white text-xl font-semibold mt-4">{viewImage.name}</h3>
                     </div>
                 </div>
             )}
