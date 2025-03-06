@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FiEdit2, FiTrash2, FiPlus, FiEye, FiX } from 'react-icons/fi';
 import { withAuth } from '../utils/auth';
 
-function Login({ auth }) {
+function Admin({ auth }) {
     const [banners, setBanners] = useState([]);
     const [editBanner, setEditBanner] = useState(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
@@ -448,4 +448,4 @@ function Login({ auth }) {
     );
 }
 
-export default withAuth(Login); 
+export default withAuth(Admin); 

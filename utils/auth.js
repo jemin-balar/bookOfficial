@@ -23,7 +23,7 @@ export function useAuth() {
             setIsAuthenticated(!!token);
             setUser(userData ? JSON.parse(userData) : {});
             if (!token) {
-                router.push('/login');
+                router.push('/cpanel');
             }
         }
         setLoading(false);
@@ -36,7 +36,7 @@ export function useAuth() {
             storage.removeItem('user');
             setIsAuthenticated(false);
             setUser({});
-            router.push('/login');
+            router.push('/cpanel');
         }
     };
 
