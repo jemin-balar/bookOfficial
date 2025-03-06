@@ -211,7 +211,7 @@ export const SectionOne = () => {
                     </div>
                     <div className="banner-main flex justify-center items-center">
                         <div className="hero-img max-w-[550px] h-[450px] relative">
-                            <div className="absolute bottom-20 left-[47%] transform -translate-x-1/2 w-[250px] flex justify-center">
+                            <div className="absolute bottom-20 left-[47%] transform -translate-x-1/2 w-[250px] flex justify-center z-[99]">
                                 {[100, 80, 50].map((height, idx) => (
                                     <div key={idx} className="relative w-[50px] h-[50px] overflow-hidden mx-[10px]">
                                         <div
@@ -237,7 +237,7 @@ export const SectionOne = () => {
                                     src={IMAGES.players}
                                     alt="Player"
                                     fill
-                                    className="object-cover"
+                                    className="object-cover !relative"
                                     priority
                                 />
                             </div>
