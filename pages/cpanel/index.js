@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { FiEdit2, FiTrash2, FiPlus, FiEye, FiX } from 'react-icons/fi';
+import { withAuth } from '../../utils/auth';
 
-export default function BannerList() {
+function BannerList({ auth }) {
     const [banners, setBanners] = useState([]);
     const [editBanner, setEditBanner] = useState(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
@@ -139,8 +140,23 @@ export default function BannerList() {
         }
     };
 
+    // Add logout functionality
+    const handleLogout = () => {
+        auth.logout();
+    };
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+            {/* Add logout button */}
+            <div className="max-w-7xl mx-auto mb-8 flex justify-end">
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white transition-all duration-200 transform hover:scale-105"
+                >
+                    <span>Logout</span>
+                </button>
+            </div>
+
             <div className="max-w-7xl mx-auto space-y-8">
                 {/* Contact Settings Card */}
                 <div className="backdrop-blur-lg bg-white/10 rounded-2xl shadow-2xl p-8 border border-white/20">
@@ -433,4 +449,6 @@ export default function BannerList() {
             )}
         </div>
     );
-} 
+}
+
+export default withAuth(BannerList); 
