@@ -20,7 +20,7 @@ export default async function handler(req, res) {
             }
 
             try {
-                const { id, name, is_active } = req.body;
+                const { id, name } = req.body;
                 const banner = await bannerModel.findById(id);
 
                 if (!banner) {
@@ -30,7 +30,6 @@ export default async function handler(req, res) {
                 let updateData = { updatedAt: new Date() };
 
                 if (name) updateData.name = name;
-                if (is_active !== undefined) updateData.is_active = is_active;
 
                 // Handle Image Upload
                 if (req.file) {

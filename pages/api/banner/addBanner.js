@@ -19,13 +19,12 @@ router.post(async (req, res) => {
     }
 
     try {
-        const { name, is_active } = req.body;
+        const { name } = req.body;
         const imageUrl = `${process.env.LOCALHOST_URL}/view/${req.file.filename}`;
 
         const bannerObj = {
             name,
-            image: imageUrl,
-            is_active: is_active === "true",
+            image: imageUrl
         }
 
         const newBanner = await bannerModel(bannerObj).save();
