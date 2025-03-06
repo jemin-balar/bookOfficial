@@ -159,11 +159,13 @@ export default function BannerList() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10">
-                            <label className="text-gray-400 text-sm mb-2 block">WhatsApp Number 1</label>
+                            <label className="text-gray-400 text-sm mb-2 block">For New ID
+                            </label>
                             <span className="text-2xl font-semibold text-white block">{setting?.number1 || '-'}</span>
                         </div>
                         <div className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10">
-                            <label className="text-gray-400 text-sm mb-2 block">WhatsApp Number 2</label>
+                            <label className="text-gray-400 text-sm mb-2 block">For Master & Super Master ID
+                            </label>
                             <span className="text-2xl font-semibold text-white block">{setting?.number2 || '-'}</span>
                         </div>
                     </div>
@@ -238,7 +240,8 @@ export default function BannerList() {
                                 <h2 className="text-2xl font-bold text-white mb-6">Update Contact Numbers</h2>
                                 <form onSubmit={handleSettingUpdate} className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-2">WhatsApp Number 1</label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">For New ID
+                                        </label>
                                         <input 
                                             type="text" 
                                             name="number1" 
@@ -249,7 +252,7 @@ export default function BannerList() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-2">WhatsApp Number 2</label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">For Master & Super Master ID</label>
                                         <input 
                                             type="text" 
                                             name="number2" 
