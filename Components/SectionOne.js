@@ -313,7 +313,7 @@ export const SectionOne = () => {
                     </div>
                 </div>
             </div>
-            <div className="py-16 relative overflow-hidden">
+            {/* <div className="py-16 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-purple-500/5 to-blue-500/5 animate-gradient"></div>
                 <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-orange-500/10 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl"></div>
@@ -362,7 +362,7 @@ export const SectionOne = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
 
         <style jsx>{`
