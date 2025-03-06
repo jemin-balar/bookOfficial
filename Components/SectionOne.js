@@ -95,12 +95,10 @@ export const SectionOne = () => {
             
             .hero-section {
                 position: relative;
-                background: rgba(0, 0, 0, 0.4);
                 backdrop-filter: blur(10px);
                 border-radius: 20px;
                 padding: 40px 20px;
                 margin: 20px 0;
-                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             }
 
             .card-container {
@@ -200,7 +198,7 @@ export const SectionOne = () => {
                         >
                             Now directly take ID from WhatsApp
                         </h5>
-                        <div className="flex w-[100%] justify-center lg:justify-start flex-col lg:flex-row">
+                        <div className="flex w-[100%] justify-center lg:justify-start items-center flex-col lg:flex-row">
                             <div className="link-btn flex justify-center items-center lg:text-nowrap">
                                 <FaWhatsapp />+91 7690030405
                             </div>
@@ -246,7 +244,7 @@ export const SectionOne = () => {
                 </div>
             </div>
             <div className="pt-[70px] pb-[40px] pl-[20px] pr-[15px] overflow-auto scrollbar-hide" ref={scrollRef}>
-                <div className="flex gap-[30px] w-max min-h-screen">
+                <div className="flex gap-[30px] w-max ">
                     {infiniteList.map((curData, index) => (
                         <div key={index} className="relative w-[273.25px] h-[468px]">
                             <Image
