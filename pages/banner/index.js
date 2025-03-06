@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styles from './Banner.module.css';
+import { FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
 
 export default function BannerList() {
     const [banners, setBanners] = useState([]);
@@ -139,206 +139,256 @@ export default function BannerList() {
     };
 
     return (
-        <div className={styles.container}>
-            {/* Setting Section */}
-            <div className={styles.settingSection}>
-                <div className={styles.settingHeader}>
-                    <h2>Contact Settings</h2>
-                    <button 
-                        className={`${styles.actionButton} ${styles.editButton}`}
-                        onClick={() => setShowSettingModal(true)}
-                    >
-                        Edit Settings
-                    </button>
-                </div>
-                <div className={styles.settingContent}>
-                    <div className={styles.settingItem}>
-                        <label>Number 1:</label>
-                        <span>{setting?.number1 || '-'}</span>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto space-y-8">
+                {/* Contact Settings Card */}
+                <div className="backdrop-blur-lg bg-white/10 rounded-2xl shadow-2xl p-8 border border-white/20">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                        <div>
+                            <h2 className="text-3xl font-bold text-white mb-2">Contact Settings</h2>
+                            <p className="text-gray-300">Manage your contact information</p>
+                        </div>
+                        <button 
+                            className="group flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white transition-all duration-200 transform hover:scale-105"
+                            onClick={() => setShowSettingModal(true)}
+                        >
+                            <FiEdit2 className="mr-2" />
+                            <span>Edit Settings</span>
+                        </button>
                     </div>
-                    <div className={styles.settingItem}>
-                        <label>Number 2:</label>
-                        <span>{setting?.number2 || '-'}</span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10">
+                            <label className="text-gray-400 text-sm mb-2 block">WhatsApp Number 1</label>
+                            <span className="text-2xl font-semibold text-white block">{setting?.number1 || '-'}</span>
+                        </div>
+                        <div className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10">
+                            <label className="text-gray-400 text-sm mb-2 block">WhatsApp Number 2</label>
+                            <span className="text-2xl font-semibold text-white block">{setting?.number2 || '-'}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Setting Edit Modal */}
-            {showSettingModal && setting && (
-                <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <h2>Edit Settings</h2>
-                        <form onSubmit={handleSettingUpdate}>
-                            <div>
-                                <label>Number 1:</label>
-                                <input 
-                                    type="text" 
-                                    name="number1" 
-                                    defaultValue={setting.number1}
-                                    required 
-                                    placeholder="Enter number 1"
-                                />
-                            </div>
-                            <div>
-                                <label>Number 2:</label>
-                                <input 
-                                    type="text" 
-                                    name="number2" 
-                                    defaultValue={setting.number2}
-                                    required 
-                                    placeholder="Enter number 2"
-                                />
-                            </div>
-                            <div className={styles.modalActions}>
-                                <button type="submit" disabled={isLoading}>
-                                    {isLoading ? 'Updating...' : 'Update'}
-                                </button>
-                                <button type="button" onClick={() => setShowSettingModal(false)}>
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
+                {/* Banner List Card */}
+                <div className="backdrop-blur-lg bg-white/10 rounded-2xl shadow-2xl p-8 border border-white/20">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                        <div>
+                            <h1 className="text-3xl font-bold text-white mb-2">Banner Gallery</h1>
+                            <p className="text-gray-300">Manage your banner collection</p>
+                        </div>
+                        <button 
+                            className="group flex items-center px-4 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-xl text-white transition-all duration-200 transform hover:scale-105"
+                            onClick={() => setShowCreateModal(true)}
+                        >
+                            <FiPlus className="mr-2" />
+                            <span>Add New Banner</span>
+                        </button>
                     </div>
-                </div>
-            )}
-
-            {/* Banner Section */}
-            <div className={styles.header}>
-                <h1>Banner List</h1>
-                <button 
-                    className={`${styles.actionButton} ${styles.createButton}`}
-                    onClick={() => setShowCreateModal(true)}
-                >
-                    Create Banner
-                </button>
-            </div>
-            
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {banners.map((banner, index) => (
-                        <tr key={banner._id}>
-                            <td>{index + 1}</td>
-                            <td>{banner.name}</td>
-                            <td>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {banners.map((banner, index) => (
+                            <div key={banner._id} className="group relative bg-white/5 rounded-xl overflow-hidden border border-white/10 transition-all duration-300 hover:transform hover:scale-105">
                                 <img 
                                     src={banner.image} 
                                     alt={banner.name} 
-                                    className={styles.previewImage}
+                                    className="w-full h-48 object-cover"
                                 />
-                            </td>
-                            <td>
-                                <button className={styles.actionButton} onClick={() => setEditBanner(banner)}>Edit</button>
-                                <button className={styles.actionButton} onClick={() => setShowDeleteConfirm(banner)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            {/* Add Create Modal */}
-            {showCreateModal && (
-                <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <h2>Create Banner</h2>
-                        <form onSubmit={handleCreate}>
-                            <div>
-                                <label>Name:*</label>
-                                <input 
-                                    type="text" 
-                                    name="name" 
-                                    required 
-                                    placeholder="Enter banner name"
-                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                                        <h3 className="text-white font-semibold mb-2">{banner.name}</h3>
+                                        <div className="flex space-x-2">
+                                            <button 
+                                                onClick={() => setEditBanner(banner)}
+                                                className="flex items-center px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-white text-sm transition-colors duration-200"
+                                            >
+                                                <FiEdit2 className="mr-1" /> Edit
+                                            </button>
+                                            <button 
+                                                onClick={() => setShowDeleteConfirm(banner)}
+                                                className="flex items-center px-3 py-1 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-white text-sm transition-colors duration-200"
+                                            >
+                                                <FiTrash2 className="mr-1" /> Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label>Image:*</label>
-                                <input 
-                                    type="file" 
-                                    name="image" 
-                                    accept="image/*"
-                                    required
-                                />
-                            </div>
-                            <div className={styles.modalActions}>
-                                <button type="submit" disabled={isLoading}>
-                                    {isLoading ? 'Creating...' : 'Create'}
-                                </button>
-                                <button type="button" onClick={() => setShowCreateModal(false)}>
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
+                        ))}
                     </div>
                 </div>
-            )}
+            </div>
 
-            {/* Edit Modal */}
-            {editBanner && (
-                <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <h2>Edit Banner</h2>
-                        <form onSubmit={(e) => handleUpdate(e, editBanner._id)}>
-                            <div>
-                                <label>Name:*</label>
-                                <input 
-                                    type="text" 
-                                    name="name" 
-                                    defaultValue={editBanner.name} 
-                                    required 
-                                    placeholder="Enter banner name"
-                                />
+            {/* Modal Backdrop */}
+            {(showSettingModal || showCreateModal || editBanner || showDeleteConfirm) && (
+                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center p-4 z-50">
+                    <div className="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-white/20">
+                        {/* Setting Modal */}
+                        {showSettingModal && setting && (
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold text-white mb-6">Update Contact Numbers</h2>
+                                <form onSubmit={handleSettingUpdate} className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">WhatsApp Number 1</label>
+                                        <input 
+                                            type="text" 
+                                            name="number1" 
+                                            defaultValue={setting.number1}
+                                            required 
+                                            placeholder="Enter WhatsApp number"
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">WhatsApp Number 2</label>
+                                        <input 
+                                            type="text" 
+                                            name="number2" 
+                                            defaultValue={setting.number2}
+                                            required 
+                                            placeholder="Enter WhatsApp number"
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        />
+                                    </div>
+                                    <div className="flex justify-end space-x-3 mt-6">
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowSettingModal(false)}
+                                            className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-white transition-colors duration-200"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                            {isLoading ? 'Updating...' : 'Update Numbers'}
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label>Image:*</label>
-                                <input 
-                                    type="file" 
-                                    name="image" 
-                                    accept="image/*"
-                                />
-                                <img 
-                                    src={editBanner.image} 
-                                    alt="Current" 
-                                    className={styles.previewImage}
-                                />
-                            </div>
-                            <div className={styles.modalActions}>
-                                <button type="submit" disabled={isLoading}>
-                                    {isLoading ? 'Updating...' : 'Update'}
-                                </button>
-                                <button type="button" onClick={() => setEditBanner(null)}>
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+                        )}
 
-            {/* Delete Confirmation Modal */}
-            {showDeleteConfirm && (
-                <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <h2>Confirm Delete</h2>
-                        <p>Are you sure you want to delete "{showDeleteConfirm.name}"?</p>
-                        <div className={styles.modalActions}>
-                            <button 
-                                onClick={() => handleDelete(showDeleteConfirm._id)}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? 'Deleting...' : 'Yes'}
-                            </button>
-                            <button onClick={() => setShowDeleteConfirm(null)}>
-                                No
-                            </button>
-                        </div>
+                        {/* Create Modal */}
+                        {showCreateModal && (
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold text-white mb-6">Add New Banner</h2>
+                                <form onSubmit={handleCreate} className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Banner Name</label>
+                                        <input 
+                                            type="text" 
+                                            name="name" 
+                                            required 
+                                            placeholder="Enter banner name"
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Banner Image</label>
+                                        <div className="relative">
+                                            <input 
+                                                type="file" 
+                                                name="image" 
+                                                accept="image/*"
+                                                required
+                                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-emerald-500 file:text-white hover:file:bg-emerald-600"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-end space-x-3 mt-6">
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowCreateModal(false)}
+                                            className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-white transition-colors duration-200"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-xl text-white transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                            {isLoading ? 'Creating...' : 'Add Banner'}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
+
+                        {/* Edit Modal */}
+                        {editBanner && (
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold text-white mb-6">Edit Banner</h2>
+                                <form onSubmit={(e) => handleUpdate(e, editBanner._id)} className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Banner Name</label>
+                                        <input 
+                                            type="text" 
+                                            name="name" 
+                                            defaultValue={editBanner.name} 
+                                            required 
+                                            placeholder="Enter banner name"
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Banner Image</label>
+                                        <input 
+                                            type="file" 
+                                            name="image" 
+                                            accept="image/*"
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-indigo-500 file:text-white hover:file:bg-indigo-600"
+                                        />
+                                        <img 
+                                            src={editBanner.image} 
+                                            alt="Current" 
+                                            className="mt-4 w-full h-48 object-cover rounded-xl"
+                                        />
+                                    </div>
+                                    <div className="flex justify-end space-x-3 mt-6">
+                                        <button
+                                            type="button"
+                                            onClick={() => setEditBanner(null)}
+                                            className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-white transition-colors duration-200"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                            {isLoading ? 'Updating...' : 'Update Banner'}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
+
+                        {/* Delete Confirmation Modal */}
+                        {showDeleteConfirm && (
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold text-white mb-4">Confirm Delete</h2>
+                                <p className="text-gray-300 mb-6">
+                                    Are you sure you want to delete "{showDeleteConfirm.name}"?
+                                </p>
+                                <div className="flex justify-end space-x-3">
+                                    <button
+                                        onClick={() => setShowDeleteConfirm(null)}
+                                        className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-white transition-colors duration-200"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(showDeleteConfirm._id)}
+                                        disabled={isLoading}
+                                        className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white transition-colors duration-200 disabled:opacity-50"
+                                    >
+                                        {isLoading ? 'Deleting...' : 'Delete Banner'}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
