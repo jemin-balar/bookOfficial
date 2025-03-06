@@ -10,10 +10,6 @@ const BannerSchema = new mongoose.Schema(
             type: String,
             required: true
         }, // URL of the uploaded image
-        is_active: {
-            type: Boolean,
-            default: true
-        },
     },
     { timestamps: true }
 );
