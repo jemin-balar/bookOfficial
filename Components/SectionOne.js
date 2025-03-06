@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FaWhatsapp, FaHeadset, FaBolt, FaShieldAlt, FaMoneyBillWave, FaDice, FaTrophy, FaCrown, FaGem } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
+import CarouselComponent from './Carsoul';
 
 // Define static image paths
 const IMAGES = {
@@ -81,6 +82,22 @@ export const SectionOne = () => {
             }
         }, 4000);
         return () => clearInterval(scrollInterval);
+    }, []);
+
+    const [settingData, setSettingData] = useState({});
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(() => {
+        const fetchBanners = async () => {
+            try {
+                const response = await fetch(`/api/setting`);
+                const result = await response.json();
+                setSettingData(result.data);
+            } catch (error) { } finally {
+                setLoading(false);
+            }
+        };
+        fetchBanners();
     }, []);
 
     return (
@@ -222,28 +239,36 @@ export const SectionOne = () => {
                                     & Most Trusted
                                     <span className="bg-gradient-to-r from-orange-400 to-orange-600 text-transparent bg-clip-text"> Book</span>
                                 </h1>
-                                
-                                <h5 className="text-2xl sm:text-3xl text-white/90 font-bold">
-                                    Now directly take ID from 
-                                    <span className="relative inline-block px-2">
-                                        <span className="relative z-10 text-[#B8860B]">WhatsApp</span>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-[#B8860B]/20 to-[#DAA520]/10 blur-sm"></div>
-                                    </span>
-                                </h5>
+                            <CarouselComponent />
                             </div>
-                            <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                                {['+91 7690030405', '+91 7691030405'].map((number, idx) => (
-                                    <button
-                                        key={idx}
-                                        className="group relative flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-lg hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 overflow-hidden"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                                        <FaWhatsapp className="text-2xl relative z-10" />
-                                        <span className="relative z-10">{number}</span>
-                                    </button>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
+                                {[
+                                    { number: '+91 7690030405', label: 'For New ID', icon: <FaWhatsapp /> },
+                                    { number: '+91 7691030405', label: 'For Master & Super Master ID', icon: <FaWhatsapp /> }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="flex flex-col gap-2">
+                                        <span className="text-lg font-semibold text-[#B8860B] relative inline-flex items-center gap-2">
+                                            {item.label}
+                                            <div className="flex-1 h-[1px] bg-gradient-to-r from-[#B8860B]/50 to-transparent"></div>
+                                        </span>
+                                        <button
+                                            className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 overflow-hidden w-full"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                                            <div className="flex items-center gap-3 relative z-10">
+                                                {item.icon}
+                                                <span className="text-lg">{item.number}</span>
+                                            </div>
+                                            <div className="absolute right-4 transform translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 relative z-10">
+                                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </div>
+                                        </button>
+                                    </div>
                                 ))}
                             </div>
-                            <div className="grid grid-cols-2 gap-4 pt-8">
+                            <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
                                 {[
                                     { text: "24/7 Support", icon: "🎯" },
                                     { text: "Instant Access", icon: "⚡" },
@@ -285,20 +310,15 @@ export const SectionOne = () => {
                 </div>
             </div>
             <div className="py-16 relative overflow-hidden">
-                {/* Background Effects */}
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-purple-500/5 to-blue-500/5 animate-gradient"></div>
                 <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-orange-500/10 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl"></div>
-
-                {/* Section Title */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/10 to-purple-500/10 border border-white/10 backdrop-blur-sm">
                         <span className="animate-pulse w-2 h-2 rounded-full bg-orange-500"></span>
                         <span className="text-orange-300 font-medium">Featured Games</span>
                     </div>
                 </div>
-
-                {/* Cards Scroll Container */}
                 <div className="relative max-w-[100vw] overflow-hidden">
                     <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#1A1A1D] to-transparent z-10"></div>
                     <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#1A1A1D] to-transparent z-10"></div>
