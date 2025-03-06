@@ -256,11 +256,12 @@ export const SectionOne = () => {
                                         </span>
                                         <button
                                             className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 overflow-hidden w-full"
+                                            onClick={() => window.open(`https://wa.me/${item.number}`, '_blank')}
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                             <div className="flex items-center gap-3 relative z-10">
                                                 {item.icon}
-                                                <span className="text-lg">{item.number}</span>
+                                                <span className="text-lg">+91 {item.number}</span>
                                             </div>
                                             <div className="absolute right-4 transform translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 relative z-10">
                                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -331,7 +332,7 @@ export const SectionOne = () => {
                             {infiniteList.map((curData, index) => (
                                 <div 
                                     key={index} 
-                                    className="relative w-[250px] h-[400px] group"
+                                    className="relative w-[250px] h-[400px] group cursor-pointer"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     <div className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all duration-300 group-hover:scale-[1.02] group-hover:border-white/20">

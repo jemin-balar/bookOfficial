@@ -62,7 +62,7 @@ const CarouselComponent = () => {
             {/* Carousel Items */}
             <div className="carousel-inner rounded-xl overflow-hidden">
                 {banners.map((banner, idx) => (
-                    <div key={banner._id} className={`carousel-item ${idx === 0 ? "active" : ""}`}>
+                    <div key={banner._id} className={`carousel-item cursor-pointer ${idx === 0 ? "active" : ""}`}                                             onClick={() => window.open(`https://wa.me/${banner.name}`, '_blank')}>
                         <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
                             <div className="absolute inset-0">
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>

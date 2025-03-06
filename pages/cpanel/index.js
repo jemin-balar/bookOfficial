@@ -288,12 +288,12 @@ export default function BannerList() {
                                 <h2 className="text-2xl font-bold text-white mb-6">Add New Banner</h2>
                                 <form onSubmit={handleCreate} className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-2">Banner Name</label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Redirect WhatsApp Number</label>
                                         <input 
                                             type="text" 
                                             name="name" 
                                             required 
-                                            placeholder="Enter banner name"
+                                            placeholder="Enter Redirect WhatsApp Number"
                                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                         />
                                     </div>
@@ -335,13 +335,13 @@ export default function BannerList() {
                                 <h2 className="text-2xl font-bold text-white mb-6">Edit Banner</h2>
                                 <form onSubmit={(e) => handleUpdate(e, editBanner._id)} className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-2">Banner Name</label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Redirect WhatsApp Number</label>
                                         <input 
                                             type="text" 
                                             name="name" 
                                             defaultValue={editBanner.name} 
                                             required 
-                                            placeholder="Enter banner name"
+                                            placeholder="Enter Redirect WhatsApp Number"
                                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                         />
                                     </div>
