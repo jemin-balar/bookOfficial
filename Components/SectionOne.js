@@ -100,6 +100,9 @@ export const SectionOne = () => {
         fetchBanners();
     }, []);
 
+    console.log(settingData, 'settingDatasettingDatasettingDatasettingData');
+    
+
     return (
     <>
         <style jsx>{`
@@ -243,8 +246,8 @@ export const SectionOne = () => {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
                                 {[
-                                    { number: '+91 7690030405', label: 'For New ID', icon: <FaWhatsapp /> },
-                                    { number: '+91 7691030405', label: 'For Master & Super Master ID', icon: <FaWhatsapp /> }
+                                    { number: settingData?.number1, label: 'For New ID', icon: <FaWhatsapp /> },
+                                    { number: settingData?.number2, label: 'For Master & Super Master ID', icon: <FaWhatsapp /> }
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex flex-col gap-2">
                                         <span className="text-lg font-semibold text-[#B8860B] relative inline-flex items-center gap-2">
