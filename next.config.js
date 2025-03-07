@@ -4,7 +4,7 @@ const path = require('path')
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: [],
+        domains: ['localhost', 'book-official.vercel.app'],
         unoptimized: true,
     },
     webpack: (config) => {

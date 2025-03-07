@@ -1,20 +1,14 @@
-import '../styles/globals.css'
 import { useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
     useEffect(() => {
-        // Import Bootstrap JS only on client-side
-        if (typeof window !== 'undefined') {
-            require('bootstrap/dist/js/bootstrap.bundle.min.js');
-        }
+        // Import Bootstrap JS on client-side
+        import('bootstrap/dist/js/bootstrap');
     }, []);
 
-    return (
-        <>
-            <Component {...pageProps} />
-        </>
-    )
+    return <Component {...pageProps} />;
 }
 
 export default MyApp;
