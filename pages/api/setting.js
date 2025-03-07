@@ -1,16 +1,38 @@
-import settingModel from "../../model/setting.model";
-import dbConnect from "../../lib/dbConnect";
+import dbConnect from '../../lib/dbConnect';
+import Setting from '../../models/Setting';
+
 export default async function handler(req, res) {
-    if (req.method !== "GET") {
-        return res.status(405).json({ error: "Method Not Allowed" });
+    if (req.method !== 'GET') {
+        return res.status(405).json({
+            success: false,
+            message: 'Method not allowed'
+        });
     }
 
-    await dbConnect();
-
     try {
-        const setting = await settingModel.findOne()
-        res.status(200).json({ data: setting });
+        await dbConnect();
+        
+        const setting = await Setting.findOne().lean();
+        
+        if (!setting) {
+            return res.status(404).json({
+                success: false,
+                message: 'Settings not found',
+                data: null
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Settings retrieved successfully',
+            data: setting
+        });
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        console.error('API Error:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
     }
 }

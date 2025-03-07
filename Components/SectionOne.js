@@ -84,24 +84,54 @@ export const SectionOne = () => {
         return () => clearInterval(scrollInterval);
     }, []);
 
-    const [settingData, setSettingData] = useState({});
+    const [settingData, setSettingData] = useState(null);
     const [loading, setLoading] = useState(true);
-    
+    const [error, setError] = useState(null);
+
+    // Fetch settings data
     useEffect(() => {
-        const fetchBanners = async () => {
+        const fetchSettings = async () => {
             try {
-                const response = await fetch(`/api/setting`);
-                const result = await response.json();
-                setSettingData(result.data);
-            } catch (error) { } finally {
+                setLoading(true);
+                const response = await fetch('/api/setting');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch settings');
+                }
+                const data = await response.json();
+                setSettingData(data.data);
+            } catch (err) {
+                console.error('Error fetching settings:', err);
+                setError(err.message);
+            } finally {
                 setLoading(false);
             }
         };
-        fetchBanners();
+
+        fetchSettings();
     }, []);
 
-    console.log(settingData, 'settingDatasettingDatasettingDatasettingData');
-    
+    // Loading state
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
+            </div>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+                <div className="text-red-500">Error loading data. Please try again later.</div>
+            </div>
+        );
+    }
+
+    // Ensure settingData exists before rendering
+    if (!settingData) {
+        return null;
+    }
 
     return (
     <>
@@ -246,29 +276,26 @@ export const SectionOne = () => {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
                                 {[
-                                    { number: settingData?.number1, label: 'For New ID', icon: <FaWhatsapp /> },
-                                    { number: settingData?.number2, label: 'For Master & Super Master ID', icon: <FaWhatsapp /> }
+                                    { number: settingData?.number1, label: 'For New ID' },
+                                    { number: settingData?.number2, label: 'For Master & Super Master ID' }
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex flex-col gap-2">
                                         <span className="text-lg font-semibold text-[#B8860B] relative inline-flex items-center gap-2">
                                             {item.label}
                                             <div className="flex-1 h-[1px] bg-gradient-to-r from-[#B8860B]/50 to-transparent"></div>
                                         </span>
-                                        <button
+                                        <a
+                                            href={`https://wa.me/${item.number}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 overflow-hidden w-full"
-                                            onClick={() => window.open(`https://wa.me/${item.number}`, '_blank')}
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                             <div className="flex items-center gap-3 relative z-10">
-                                                {item.icon}
+                                                <FaWhatsapp />
                                                 <span className="text-lg">+91 {item.number}</span>
                                             </div>
-                                            <div className="absolute right-4 transform translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 relative z-10">
-                                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                </svg>
-                                            </div>
-                                        </button>
+                                        </a>
                                     </div>
                                 ))}
                             </div>
